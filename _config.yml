@@ -2,7 +2,7 @@
 title: "Endless Adventure"
 email: adechazal00@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-baseurl: "/adventure_co" # the subpath of your site, e.g. /blog/
+baseurl: "/adventure_co/" # the subpath of your site, e.g. /blog/
 url: "https://adechazal.github.io" # the base hostname & protocol for your site
 
 instagram_username: "chazal1"
