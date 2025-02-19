@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Adventures</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
+    <style>
+        .filter-bar {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .filter-bar input {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+        }
+        .spreadsheet-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .spreadsheet-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>All Adventures</h1>
+    </header>
+    <main>
+        <div class="filter-bar">
+            <input type="text" id="filterInput" placeholder="Filter adventures...">
+        </div>
+        <div class="spreadsheet-container">
+            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlybLrzUaz3Tp3PI7nOgAni14M_7K9-p6Nb3-49IupEmCFiV-HkYQivZWj7grpAfm_kJ8bRKggSGJE/pubhtml?widget=true&amp;headers=false"></iframe>
+        </div>
+        <section class="no-padding" id="portfolio">
+            <div class="container-fluid">
+                <div class="row no-gutter" id="adventureList">
+                    <!-- Adventures will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Endless Adventure</p>
+    </footer>
+    <script>
+        // Sample data representing the spreadsheet of adventures
+        const adventures = [
+            {
+                category: "Ski Tour",
+                name: "Davos Winter Epic",
+                image: "{{ site.baseurl }}/img/portfolio/1.jpg",
+                link: "{{ site.baseurl }}/projects/project1.html"
+            },
+            {
+                category: "Enduro Tour",
+                name: "Davos Summer Shred",
+                image: "{{ site.baseurl }}/img/portfolio/2.jpg",
+                link: "{{ site.baseurl }}/projects/project2.html"
+            },
+            // Add more adventures as needed
+        ];
+
+        // Function to display adventures
+        function displayAdventures(adventures) {
+            const adventureList = document.getElementById('adventureList');
+            adventureList.innerHTML = '';
+            adventures.forEach(adventure => {
+                const adventureItem = document.createElement('div');
+                adventureItem.className = 'col-lg-4 col-sm-6';
+                adventureItem.innerHTML = `
+                    <a href="${adventure.link}" class="portfolio-box">
+                        <img src="${adventure.image}" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    ${adventure.category}
+                                </div>
+                                <div class="project-name">
+                                    ${adventure.name}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                adventureList.appendChild(adventureItem);
+            });
+        }
+
+        // Function to filter adventures
+        function filterAdventures() {
+            const filterInput = document.getElementById('filterInput').value.toLowerCase();
+            const filteredAdventures = adventures.filter(adventure => 
+                adventure.category.toLowerCase().includes(filterInput) ||
+                adventure.name.toLowerCase().includes(filterInput)
+            );
+            displayAdventures(filteredAdventures);
+        }
+
+        // Event listener for filter input
+        document.getElementById('filterInput').addEventListener('input', filterAdventures);
+
+        // Initial display of adventures
+        displayAdventures(adventures);
+    </script>
+</body>
+</html>
